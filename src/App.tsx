@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -5,36 +6,18 @@ import Profile from "./pages/Profile";
 import ChatPage from "./pages/ChatPage";
 import { useAuth } from "./hooks/useAuth";
 
-export default function App() {
-
-  const { isAuthenticated } = useAuth();
+const App: React.FC = () => {
+  const { token } = useAuth();
 
   return (
-
     <Routes>
-
-      <Route path="/" element={<Navigate to="/chat" />} />
-
-      <Route
-
-        path="/chat"
-        element={isAuthenticated ? <ChatPage /> : <Navigate to="/login" />}
-        
-      />
-
-      <Route path="/login" element={<Login />} />
-
-      <Route path="/register" element={<Register />} />
-
-      <Route
-
-        path="/profile"
-        element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
-
-      />
-
+      <Route path="/login" element={!token ? <Login /> : <Navigate to="/chat" />} />
+      <Route path="/register" element={!token ? <Register /> : <Navigate to="/chat" />} />
+      <Route path="/profile" element={token ? <Profile /> : <Navigate to="/login" />} />
+      <Route path="/chat" element={token ? <ChatPage /> : <Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to={token ? "/chat" : "/login"} />} />
     </Routes>
-
   );
+};
 
-}
+export default App;
