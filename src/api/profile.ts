@@ -3,6 +3,7 @@ import API from "./axios";
 export interface Profile {
   user_id: number;
   full_name?: string;
+  email?: string;
   phone?: string;
   gender?: string;
   birthdate?: string;

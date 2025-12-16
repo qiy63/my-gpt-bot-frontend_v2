@@ -68,14 +68,6 @@ export default function Login() {
 
       <div className="relative w-full max-w-6xl">
         <div className="relative bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-          <button
-            type="button"
-            onClick={() => navigate("/")}
-            className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 border border-white/20 group"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5 text-white group-hover:rotate-90 transition-transform duration-300" />
-          </button>
 
           <div className="grid md:grid-cols-2 gap-0">
             <DecorativePanel />
