@@ -1,5 +1,5 @@
 import React, { useState, type FormEvent } from "react";
-import { registerUser } from "../api/auth";
+import { registerApi as registerUser } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
