@@ -24,6 +24,7 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
   const location = useLocation();
   const { logout, name, profilePicture } = useAuth();
   const isFeedbackPage = location.pathname.includes("feedback");
+  const isDocumentPage = location.pathname.includes("documents");
 
   const [isDocumentExpanded, setIsDocumentExpanded] = useState(false);
   const [isFeedbackExpanded, setIsFeedbackExpanded] = useState(false);
@@ -91,8 +92,18 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
           </button>
           {isDocumentExpanded && !isCollapsed && (
             <div className="px-3 pb-2 space-y-1">
-              <div className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">Upload New</div>
-              <div className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">Recent Files</div>
+              <div
+                onClick={() => navigate("/documents")}
+                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
+              >
+                Guided Documents
+              </div>
+              <div
+                onClick={() => navigate("/documents")}
+                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
+              >
+                Upload / Manage (admin)
+              </div>
             </div>
           )}
         </div>
@@ -111,8 +122,18 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
           </button>
           {isFeedbackExpanded && !isCollapsed && (
             <div className="px-3 pb-2 space-y-1">
-              <div className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">Send Feedback</div>
-              <div className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">Report Issue</div>
+              <div
+                onClick={() => navigate("/feedback")}
+                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
+              >
+                Send Feedback
+              </div>
+              <div
+                onClick={() => navigate("/feedback")}
+                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
+              >
+                Report Issue
+              </div>
             </div>
           )}
         </div>

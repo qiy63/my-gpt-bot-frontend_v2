@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import ProfilePage from "./pages/Profile";
 import ChatPage from "./pages/ChatPage";
 import FeedbackPage from "./pages/Feedback";
+import DocumentPage from "./pages/Document";
 import { useAuth } from "./hooks/useAuth";
 
 const App: React.FC = () => {
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       <Route path="/profile" element={token ? <ProfilePage /> : <Navigate to="/login" />} />
       <Route path="/feedback" element={token ? <FeedbackPage /> : <Navigate to="/login" />} />
       <Route path="/chat" element={token ? <ChatPage /> : <Navigate to="/login" />} />
+      <Route path="/documents" element={token ? <DocumentPage /> : <Navigate to="/login" />} />
       <Route path="*" element={<Navigate to={token ? "/chat" : "/login"} />} />
     </Routes>
   );
