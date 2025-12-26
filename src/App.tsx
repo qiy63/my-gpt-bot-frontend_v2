@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -6,10 +6,14 @@ import ProfilePage from "./pages/Profile";
 import ChatPage from "./pages/ChatPage";
 import FeedbackPage from "./pages/Feedback";
 import DocumentPage from "./pages/Document";
+import AdminPage from "./pages/Admin";
 import { useAuth } from "./hooks/useAuth";
 
 const App: React.FC = () => {
-  const { token } = useAuth();
+  const { token, role } = useAuth();
+
+  const AdminRoute = ({ children }: { children: JSX.Element }) =>
+    token && role === "admin" ? children : <Navigate to={token ? "/chat" : "/login"} replace />;
 
   return (
     <Routes>
@@ -19,6 +23,14 @@ const App: React.FC = () => {
       <Route path="/feedback" element={token ? <FeedbackPage /> : <Navigate to="/login" />} />
       <Route path="/chat" element={token ? <ChatPage /> : <Navigate to="/login" />} />
       <Route path="/documents" element={token ? <DocumentPage /> : <Navigate to="/login" />} />
+      <Route
+        path="/admin/*"
+        element={
+          <AdminRoute>
+            <AdminPage />
+          </AdminRoute>
+        }
+      />
       <Route path="*" element={<Navigate to={token ? "/chat" : "/login"} />} />
     </Routes>
   );

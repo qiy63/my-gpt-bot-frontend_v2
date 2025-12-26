@@ -9,10 +9,12 @@ type AuthResponse = {
   userId?: number;
   name?: string;
   profilePicture?: string;
+  role?: string;
   user?: {
     id: number;
     name?: string;
     profilePicture?: string;
+    role?: string;
   };
 };
 
@@ -44,9 +46,10 @@ export default function Login() {
 
         const resolvedName = data.user?.name ?? data.name;
         const resolvedProfile = data.user?.profilePicture ?? data.profilePicture;
+        const resolvedRole = (data.role ?? data.user?.role ?? "user").toLowerCase();
 
-        login(data.token, resolvedUserId, resolvedName, resolvedProfile);
-        navigate("/chat");
+        login(data.token, resolvedUserId, resolvedName, resolvedProfile, resolvedRole);
+        navigate(resolvedRole === "admin" ? "/admin" : "/chat");
       } else {
         await registerApi(name.trim(), email.trim(), password);
         setFeedback("Registration successful! Please sign in.");

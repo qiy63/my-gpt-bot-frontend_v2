@@ -5,7 +5,14 @@ type AuthContextType = {
   userId: number | null;
   name?: string;
   profilePicture?: string;
-  login: (token: string, userId: number, name?: string, profilePicture?: string) => void;
+  role?: string;
+  login: (
+    token: string,
+    userId: number,
+    name?: string,
+    profilePicture?: string,
+    role?: string
+  ) => void;
   logout: () => void;
 };
 
@@ -20,17 +27,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profilePicture, setProfilePicture] = useState<string | undefined>(
     localStorage.getItem("profilePicture") || undefined
   );
+  const [role, setRole] = useState<string | undefined>(localStorage.getItem("role") || undefined);
 
-  const login = (jwt: string, id: number, userName?: string, userProfile?: string) => {
+  const login = (
+    jwt: string,
+    id: number,
+    userName?: string,
+    userProfile?: string,
+    userRole?: string
+  ) => {
     localStorage.setItem("token", jwt);
     localStorage.setItem("userId", id.toString());
     if (userName) localStorage.setItem("name", userName);
     if (userProfile) localStorage.setItem("profilePicture", userProfile);
+    if (userRole) localStorage.setItem("role", userRole);
 
     setToken(jwt);
     setUserId(id);
     setName(userName);
     setProfilePicture(userProfile);
+    setRole(userRole);
   };
 
   const logout = () => {
@@ -38,15 +54,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("userId");
     localStorage.removeItem("name");
     localStorage.removeItem("profilePicture");
+    localStorage.removeItem("role");
 
     setToken(null);
     setUserId(null);
     setName(undefined);
     setProfilePicture(undefined);
+    setRole(undefined);
   };
 
   return (
-    <AuthContext.Provider value={{ token, userId, name, profilePicture, login, logout }}>
+    <AuthContext.Provider value={{ token, userId, name, profilePicture, role, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
