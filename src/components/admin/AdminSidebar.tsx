@@ -60,8 +60,8 @@ export function AdminSidebar() {
           onToggle={() => toggleSection("documents")}
           collapsed={isCollapsed}
           items={[
-            { label: "Guided Library", onClick: () => go("/documents") },
-            { label: "Upload / Manage", onClick: () => go("/documents") },
+            { label: "Guided Library", onClick: () => go("/legal-info") },
+            { label: "Upload / Manage", onClick: () => go("/admin/legal-info") },
           ]}
         />
 
