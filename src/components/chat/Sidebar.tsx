@@ -24,7 +24,7 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
   const location = useLocation();
   const { logout, name, profilePicture } = useAuth();
   const isFeedbackPage = location.pathname.includes("feedback");
-  const isDocumentPage = location.pathname.includes("documents");
+  const isDocumentPage = location.pathname.includes("library");
 
   const [isDocumentExpanded, setIsDocumentExpanded] = useState(false);
   const [isFeedbackExpanded, setIsFeedbackExpanded] = useState(false);
@@ -93,13 +93,13 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
           {isDocumentExpanded && !isCollapsed && (
             <div className="px-3 pb-2 space-y-1">
               <div
-                onClick={() => navigate("/documents")}
+                onClick={() => navigate("/library")}
                 className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
               >
                 Guided Documents
               </div>
               <div
-                onClick={() => navigate("/documents")}
+                onClick={() => navigate("/admin/legal-info")}
                 className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
               >
                 Upload / Manage (admin)

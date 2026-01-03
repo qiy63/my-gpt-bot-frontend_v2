@@ -21,15 +21,15 @@ export type DocumentCategory = {
 };
 
 export const fetchDocuments = async (): Promise<DocumentCategory[]> => {
-  const res = await api.get("/legal_info");
+  const res = await api.get("/documents");
   return res.data.categories || [];
 };
 
 export const getDocumentDownloadUrl = (id: number) =>
-  `${api.defaults.baseURL?.replace(/\/$/, "")}/legal_info/${id}/download`;
+  `${api.defaults.baseURL?.replace(/\/$/, "")}/documents/${id}/download`;
 
 export const downloadDocument = async (id: number): Promise<Blob> => {
-  const res = await api.get(`/legal_info/${id}/download`, {
+  const res = await api.get(`/documents/${id}/download`, {
     responseType: "blob",
   });
   return res.data as Blob;

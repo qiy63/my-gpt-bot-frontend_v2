@@ -15,6 +15,8 @@ const App: React.FC = () => {
 
   const AdminRoute = ({ children }: { children: JSX.Element }) =>
     token && role === "admin" ? children : <Navigate to={token ? "/chat" : "/login"} replace />;
+  const UserRoute = ({ children }: { children: JSX.Element }) =>
+    token && role !== "admin" ? children : <Navigate to={token ? "/admin" : "/login"} replace />;
 
   return (
     <Routes>
@@ -22,8 +24,22 @@ const App: React.FC = () => {
       <Route path="/register" element={!token ? <Register /> : <Navigate to="/chat" />} />
       <Route path="/profile" element={token ? <ProfilePage /> : <Navigate to="/login" />} />
       <Route path="/feedback" element={token ? <FeedbackPage /> : <Navigate to="/login" />} />
-      <Route path="/chat" element={token ? <ChatPage /> : <Navigate to="/login" />} />
-      <Route path="/legal-info" element={token ? <DocumentPage /> : <Navigate to="/login" />} />
+      <Route
+        path="/chat"
+        element={
+          <UserRoute>
+            <ChatPage />
+          </UserRoute>
+        }
+      />
+      <Route
+        path="/library"
+        element={
+          <UserRoute>
+            <DocumentPage />
+          </UserRoute>
+        }
+      />
       <Route
         path="/admin/legal-info"
         element={
