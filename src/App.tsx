@@ -8,6 +8,7 @@ import FeedbackPage from "./pages/Feedback";
 import DocumentPage from "./pages/Document";
 import AdminPage from "./pages/Admin";
 import AdminLegalInfoPage from "./pages/AdminLegalInfo";
+import AdminLibrary from "./pages/AdminLibrary";
 import { useAuth } from "./hooks/useAuth";
 
 const App: React.FC = () => {
@@ -23,7 +24,14 @@ const App: React.FC = () => {
       <Route path="/login" element={!token ? <Login /> : <Navigate to="/chat" />} />
       <Route path="/register" element={!token ? <Register /> : <Navigate to="/chat" />} />
       <Route path="/profile" element={token ? <ProfilePage /> : <Navigate to="/login" />} />
-      <Route path="/feedback" element={token ? <FeedbackPage /> : <Navigate to="/login" />} />
+      <Route
+        path="/feedback"
+        element={
+          <UserRoute>
+            <FeedbackPage />
+          </UserRoute>
+        }
+      />
       <Route
         path="/chat"
         element={
@@ -45,6 +53,14 @@ const App: React.FC = () => {
         element={
           <AdminRoute>
             <AdminLegalInfoPage />
+          </AdminRoute>
+        }
+      />
+      <Route
+        path="/admin/library"
+        element={
+          <AdminRoute>
+            <AdminLibrary />
           </AdminRoute>
         }
       />

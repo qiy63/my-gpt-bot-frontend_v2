@@ -25,6 +25,25 @@ export const fetchDocuments = async (): Promise<DocumentCategory[]> => {
   return res.data.categories || [];
 };
 
+export const createDocument = async (form: FormData) => {
+  const res = await api.post("/documents", form, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
+};
+
+export const updateDocument = async (id: number, form: FormData) => {
+  const res = await api.put(`/documents/${id}`, form, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return res.data;
+};
+
+export const deleteDocument = async (id: number) => {
+  const res = await api.delete(`/documents/${id}`);
+  return res.data;
+};
+
 export const getDocumentDownloadUrl = (id: number) =>
   `${api.defaults.baseURL?.replace(/\/$/, "")}/documents/${id}/download`;
 

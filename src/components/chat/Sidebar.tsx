@@ -98,12 +98,6 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
               >
                 Guided Documents
               </div>
-              <div
-                onClick={() => navigate("/admin/legal-info")}
-                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
-              >
-                Upload / Manage (admin)
-              </div>
             </div>
           )}
         </div>
