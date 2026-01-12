@@ -7,6 +7,7 @@ import {
   updateLegalInfo,
   deleteLegalInfo,
   downloadLegalInfo,
+  reindexLegalInfo,
   type LegalInfoItem,
 } from "../api/legalInfo";
 
@@ -37,6 +38,8 @@ export default function AdminLegalInfoPage() {
   const [formState, setFormState] = useState<FormState>(emptyForm);
   const [saving, setSaving] = useState(false);
   const [filter, setFilter] = useState<"all" | "active" | "archived">("all");
+  const [reindexing, setReindexing] = useState(false);
+  const [reindexMessage, setReindexMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -160,6 +163,25 @@ export default function AdminLegalInfoPage() {
     }
   };
 
+  const handleReindex = async () => {
+    setReindexing(true);
+    setReindexMessage(null);
+    try {
+      const result = await reindexLegalInfo();
+      const failed = result.filter((r) => r.status !== "ok");
+      if (failed.length) {
+        setReindexMessage(`Completed with ${failed.length} errors. First: ${failed[0].message || "Unknown error"}`);
+      } else {
+        setReindexMessage("Embeddings rebuilt successfully.");
+      }
+    } catch (err: any) {
+      console.error(err);
+      setReindexMessage(err.response?.data?.error || err.message || "Reindex failed");
+    } finally {
+      setReindexing(false);
+    }
+  };
+
   return (
     <div className="flex h-screen bg-gradient-to-br from-slate-50 to-indigo-50/30 overflow-hidden">
       <AdminSidebar />
@@ -172,19 +194,34 @@ export default function AdminLegalInfoPage() {
               Manage AI reference documents with metadata
             </p>
           </div>
-          <button
-            onClick={openNew}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            New Entry
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleReindex}
+              disabled={reindexing}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-indigo-200 text-indigo-900 bg-white hover:bg-indigo-50 transition-colors disabled:opacity-60"
+            >
+              {reindexing ? "Rebuilding..." : "Rebuild Embeddings"}
+            </button>
+            <button
+              onClick={openNew}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              New Entry
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-8 py-6">
           {error && (
             <div className="mb-4 text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-lg px-4 py-2">
               {error}
+            </div>
+          )}
+
+          {reindexMessage && (
+            <div className="mb-4 text-sm text-indigo-900 bg-indigo-50 border border-indigo-100 rounded-lg px-4 py-2">
+              {reindexMessage}
             </div>
           )}
 

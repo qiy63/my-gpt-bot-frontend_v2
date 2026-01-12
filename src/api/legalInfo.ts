@@ -61,3 +61,10 @@ export const downloadLegalInfo = async (id: number): Promise<Blob> => {
   const res = await api.get(`/legal-info/${id}/download`, { responseType: "blob" });
   return res.data as Blob;
 };
+
+export const reindexLegalInfo = async (): Promise<
+  { id: number; status: string; message?: string }[]
+> => {
+  const res = await api.post("/legal-info/reindex");
+  return res.data.items || [];
+};
