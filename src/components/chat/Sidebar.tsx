@@ -17,9 +17,20 @@ import { fetchFeedback, type FeedbackEntry } from "../../api/feedback";
 interface SidebarProps {
   isCollapsed: boolean;
   onToggleCollapse: () => void;
+  chatHistory?: { id: number; title?: string | null; updated_at?: string | null }[];
+  activeChatId?: number | null;
+  onSelectChat?: (id: number) => void;
+  onNewChat?: () => void;
 }
 
-export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
+export function Sidebar({
+  isCollapsed,
+  onToggleCollapse,
+  chatHistory = [],
+  activeChatId,
+  onSelectChat,
+  onNewChat,
+}: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout, name, profilePicture } = useAuth();
@@ -31,12 +42,6 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
   const [feedbackItems, setFeedbackItems] = useState<FeedbackEntry[]>([]);
   const [feedbackLoading, setFeedbackLoading] = useState(false);
-
-  const chatHistory = [
-    { id: 1, title: 'Property Transfer Query', time: '2h ago' },
-    { id: 2, title: 'Lease Agreement Review', time: '5h ago' },
-    { id: 3, title: 'Zoning Regulations', time: '1d ago' },
-  ];
 
   useEffect(() => {
     if (!isFeedbackPage) return;
@@ -70,7 +75,10 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
 
       {/* New Chat Button */}
       <div className="p-4">
-        <button className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30">
+        <button
+          onClick={onNewChat}
+          className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 py-3 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30"
+        >
           <Plus className="size-5" />
           {!isCollapsed && <span>New Chat</span>}
         </button>
@@ -163,12 +171,24 @@ export function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps) {
                   ))
                 )
               ) : (
-                chatHistory.map(chat => (
-                  <button key={chat.id} className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-indigo-800/50 transition-colors group">
-                    <div className="truncate text-sm">{chat.title}</div>
-                    <div className="text-xs text-indigo-300 opacity-60 group-hover:opacity-100 transition-opacity">{chat.time}</div>
-                  </button>
-                ))
+                chatHistory.length === 0 ? (
+                  <div className="px-3 py-2 text-sm text-indigo-200">No chats yet.</div>
+                ) : (
+                  chatHistory.map(chat => (
+                    <button
+                      key={chat.id}
+                      onClick={() => onSelectChat?.(chat.id)}
+                      className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
+                        activeChatId === chat.id ? "bg-indigo-800/60" : "hover:bg-indigo-800/50"
+                      }`}
+                    >
+                      <div className="truncate text-sm">{chat.title || "Untitled chat"}</div>
+                      <div className="text-xs text-indigo-300 opacity-60 group-hover:opacity-100 transition-opacity">
+                        {chat.updated_at ? new Date(chat.updated_at).toLocaleString() : ""}
+                      </div>
+                    </button>
+                  ))
+                )
               )}
             </div>
           </div>
