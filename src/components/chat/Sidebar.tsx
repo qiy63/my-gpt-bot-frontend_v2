@@ -1,63 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import { 
-  PanelLeftClose, 
-  PanelLeftOpen, 
-  Plus, 
-  FileText, 
-  MessageSquare, 
-  User, 
+import {
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+  FileText,
+  MessageSquare,
+  User,
   ChevronDown,
   ChevronRight,
-  Clock
 } from 'lucide-react';
-import { fetchFeedback, type FeedbackEntry } from "../../api/feedback";
 
 interface SidebarProps {
   isCollapsed: boolean;
   onToggleCollapse: () => void;
-  chatHistory?: { id: number; title?: string | null; updated_at?: string | null }[];
-  activeChatId?: number | null;
-  onSelectChat?: (id: number) => void;
   onNewChat?: () => void;
 }
 
 export function Sidebar({
   isCollapsed,
   onToggleCollapse,
-  chatHistory = [],
-  activeChatId,
-  onSelectChat,
   onNewChat,
 }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout, name, profilePicture } = useAuth();
-  const isFeedbackPage = location.pathname.includes("feedback");
-  const isDocumentPage = location.pathname.includes("library");
 
   const [isDocumentExpanded, setIsDocumentExpanded] = useState(false);
   const [isFeedbackExpanded, setIsFeedbackExpanded] = useState(false);
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
-  const [feedbackItems, setFeedbackItems] = useState<FeedbackEntry[]>([]);
-  const [feedbackLoading, setFeedbackLoading] = useState(false);
-
-  useEffect(() => {
-    if (!isFeedbackPage) return;
-    const loadFeedback = async () => {
-      try {
-        setFeedbackLoading(true);
-        const data = await fetchFeedback();
-        setFeedbackItems(data);
-      } catch {
-        setFeedbackItems([]);
-      } finally {
-        setFeedbackLoading(false);
-      }
-    };
-    loadFeedback();
-  }, [isFeedbackPage]);
 
   return (
     <div className={`bg-gradient-to-b from-indigo-950 to-indigo-900 text-white transition-all duration-300 ease-in-out flex flex-col ${isCollapsed ? 'w-16' : 'w-72'}`}>
@@ -140,59 +112,7 @@ export function Sidebar({
           )}
         </div>
 
-        {/* Chat History or Feedback History */}
-        {!isCollapsed && (
-          <div className="pt-4">
-            <div className="flex items-center gap-2 px-3 pb-2 opacity-60">
-              <Clock className="size-4" />
-              <span className="text-sm">
-                {isFeedbackPage ? "Past Feedback" : "Recent Chats"}
-              </span>
-            </div>
-            <div className="space-y-1">
-              {isFeedbackPage ? (
-                feedbackLoading ? (
-                  <div className="px-3 py-2 text-sm text-indigo-200">Loading...</div>
-                ) : feedbackItems.length === 0 ? (
-                  <div className="px-3 py-2 text-sm text-indigo-200">No feedback yet.</div>
-                ) : (
-                  feedbackItems.map((fb) => (
-                    <div
-                      key={fb.id}
-                      className="w-full text-left px-3 py-2.5 rounded-lg bg-indigo-800/30 hover:bg-indigo-800/50 transition-colors"
-                    >
-                      <div className="truncate text-sm text-indigo-50">
-                        {fb.message}
-                      </div>
-                      <div className="text-xs text-indigo-300 opacity-70">
-                        {new Date(fb.created_at).toLocaleDateString()}
-                      </div>
-                    </div>
-                  ))
-                )
-              ) : (
-                chatHistory.length === 0 ? (
-                  <div className="px-3 py-2 text-sm text-indigo-200">No chats yet.</div>
-                ) : (
-                  chatHistory.map(chat => (
-                    <button
-                      key={chat.id}
-                      onClick={() => onSelectChat?.(chat.id)}
-                      className={`w-full text-left px-3 py-2.5 rounded-lg transition-colors group ${
-                        activeChatId === chat.id ? "bg-indigo-800/60" : "hover:bg-indigo-800/50"
-                      }`}
-                    >
-                      <div className="truncate text-sm">{chat.title || "Untitled chat"}</div>
-                      <div className="text-xs text-indigo-300 opacity-60 group-hover:opacity-100 transition-opacity">
-                        {chat.updated_at ? new Date(chat.updated_at).toLocaleString() : ""}
-                      </div>
-                    </button>
-                  ))
-                )
-              )}
-            </div>
-          </div>
-        )}
+        {/* History section removed per request */}
       </div>
 
       {/* Profile Section */}

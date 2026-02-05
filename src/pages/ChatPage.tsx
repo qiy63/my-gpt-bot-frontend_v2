@@ -31,9 +31,6 @@ const ChatPage: React.FC = () => {
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={toggleSidebar}
-        chatHistory={conversations}
-        activeChatId={activeConversationId}
-        onSelectChat={setActiveConversationId}
         onNewChat={startNewChat}
       />
 
@@ -44,6 +41,10 @@ const ChatPage: React.FC = () => {
           onSendMessage={handleSendMessage}
           loading={loading}
           messagesEndRef={messagesEndRef}
+          chatTabs={conversations}
+          activeChatId={activeConversationId}
+          onSelectChat={setActiveConversationId}
+          onNewChat={startNewChat}
         />
       </div>
     </div>
