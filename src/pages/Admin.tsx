@@ -33,7 +33,6 @@ export default function AdminPage() {
   });
   const [feedback, setFeedback] = useState<AdminFeedback[]>([]);
   const [documentCount, setDocumentCount] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,8 +50,6 @@ export default function AdminPage() {
       } catch (err) {
         console.error(err);
         setError("Failed to load admin data");
-      } finally {
-        setLoading(false);
       }
     };
     load();

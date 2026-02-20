@@ -36,7 +36,6 @@ const ChatPage: React.FC = () => {
 
       <div className="flex-1 min-w-0 flex flex-col transition-all duration-300">
         <ChatArea
-          isSidebarCollapsed={isSidebarCollapsed}
           messages={messages as Message[]}
           onSendMessage={handleSendMessage}
           loading={loading}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import {
   PanelLeftClose,
@@ -24,7 +24,6 @@ export function Sidebar({
   onNewChat,
 }: SidebarProps) {
   const navigate = useNavigate();
-  const location = useLocation();
   const { logout, name, profilePicture } = useAuth();
 
   const [isDocumentExpanded, setIsDocumentExpanded] = useState(false);

@@ -6,7 +6,6 @@ import { EmptyState } from "./EmptyState";
 import { type Message } from "../../hooks/useChat";
 
 interface ChatAreaProps {
-  isSidebarCollapsed: boolean;
   messages: Message[];
   onSendMessage: (content: string) => void;
   loading: boolean;

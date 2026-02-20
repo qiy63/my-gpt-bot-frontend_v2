@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { Mail, Lock, User, X } from "lucide-react";
+import { Mail, Lock, User } from "lucide-react";
 import { loginApi, registerApi } from "../api/auth";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
