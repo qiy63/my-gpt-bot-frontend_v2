@@ -145,6 +145,10 @@ export default function AdminLibrary() {
   };
 
   const handleDownload = async (doc: DocumentItem) => {
+    if (doc.file_url) {
+      window.open(doc.file_url, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (doc.placeholder_url) {
       window.open(doc.placeholder_url, "_blank", "noopener,noreferrer");
       return;
@@ -181,7 +185,7 @@ export default function AdminLibrary() {
               <p className="text-sm text-indigo-700/80 mt-1">{doc.short_description}</p>
             )}
             <p className="text-xs text-indigo-600/70 mt-1">
-              Source: {doc.filename ? doc.filename : "Placeholder link"}
+              Source: {doc.file_url ? "Cloud file" : "Placeholder link"}
             </p>
           </div>
         </div>

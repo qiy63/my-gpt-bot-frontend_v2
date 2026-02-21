@@ -8,7 +8,7 @@ export type DocumentItem = {
   prerequisites?: string | null;
   required_docs?: string | null;
   placeholder_url?: string | null;
-  filename?: string | null;
+  file_url?: string | null;
   created_at?: string;
 };
 

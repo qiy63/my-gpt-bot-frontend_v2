@@ -7,7 +7,7 @@ export type LegalInfoItem = {
   short_description?: string | null;
   tags?: string | null;
   status?: string | null;
-  filename?: string;
+  file_url?: string | null;
   mime_type?: string | null;
   file_size?: number | null;
   created_at?: string;

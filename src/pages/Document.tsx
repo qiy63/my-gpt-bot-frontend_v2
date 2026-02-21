@@ -39,8 +39,16 @@ export default function DocumentPage() {
 
   const toggleSidebar = () => setIsSidebarCollapsed((prev) => !prev);
 
-  const handleDownload = async (docId: number, title: string, placeholderUrl?: string | null) => {
-    // If this is just a placeholder link (external), open it directly to avoid CORS fetch issues
+  const handleDownload = async (
+    docId: number,
+    title: string,
+    placeholderUrl?: string | null,
+    fileUrl?: string | null
+  ) => {
+    if (fileUrl) {
+      window.open(fileUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     if (placeholderUrl && placeholderUrl.length > 0) {
       window.open(placeholderUrl, "_blank", "noopener,noreferrer");
       return;
@@ -147,7 +155,9 @@ export default function DocumentPage() {
                           </div>
 
                           <button
-                            onClick={() => handleDownload(doc.id, doc.title, doc.placeholder_url)}
+                            onClick={() =>
+                              handleDownload(doc.id, doc.title, doc.placeholder_url, doc.file_url)
+                            }
                             className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 text-white text-sm hover:bg-indigo-500 transition-colors"
                           >
                             <Download className="w-4 h-4" />
