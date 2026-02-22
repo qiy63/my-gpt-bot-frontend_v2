@@ -405,8 +405,8 @@ export default function AdminLibrary() {
                     }))
                   }
                 />
-                {editingDoc?.filename && !form.file && (
-                  <p className="text-xs text-indigo-600/70">Keeping existing file: {editingDoc.filename}</p>
+                {editingDoc?.file_url && !form.file && (
+                  <p className="text-xs text-indigo-600/70">Keeping existing cloud file.</p>
                 )}
                 {form.file && (
                   <p className="text-xs text-indigo-600/70">
