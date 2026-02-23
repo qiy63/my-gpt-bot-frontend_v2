@@ -61,7 +61,8 @@ export default function Landing() {
             </div>
           </div>
 
-          <div className="bg-white/80 border border-indigo-100 rounded-3xl p-6 shadow-sm space-y-5">
+          <div className="space-y-6">
+            <div className="bg-white/80 border border-indigo-100 rounded-3xl p-6 shadow-sm space-y-5">
             <Feature icon={<Scale className="w-5 h-5 text-indigo-600" />} title="Legal guidance">
               Get structured answers and next steps for common property issues.
             </Feature>
@@ -71,6 +72,36 @@ export default function Landing() {
             <Feature icon={<ShieldCheck className="w-5 h-5 text-indigo-600" />} title="Secure profile">
               Keep key details in one place to speed up your legal workflows.
             </Feature>
+          </div>
+
+            <div className="bg-white/80 border border-indigo-100 rounded-3xl p-6 shadow-sm">
+              <p className="text-sm text-indigo-700/70 mb-4">Example chat preview</p>
+              <div className="space-y-4">
+                <div className="flex justify-end">
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-indigo-600 text-white text-sm shadow-md">
+                    Do I need a lawyer to transfer a property title?
+                  </div>
+                </div>
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-indigo-50 text-indigo-900 text-sm border border-indigo-100">
+                    A lawyer is commonly involved to prepare the Sale &amp; Purchase Agreement and
+                    handle the Memorandum of Transfer. I can outline the steps, fees, and required
+                    documents for your state.
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-indigo-600 text-white text-sm shadow-md">
+                    What documents are typically required?
+                  </div>
+                </div>
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-indigo-50 text-indigo-900 text-sm border border-indigo-100">
+                    Usually: your IC/passport, title deed, latest quit rent/assessment receipts, and
+                    signed SPA. If there’s a loan, bank consent and redemption statements may also apply.
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
