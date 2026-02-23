@@ -93,71 +93,82 @@ export default function FeedbackPage() {
           </div>
         </div>
 
-        <div className="flex-1 flex items-start gap-6 px-6 py-8 overflow-y-auto">
-          <div className="w-full max-w-3xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="flex-1 overflow-y-auto px-6 py-8">
+          <div className="w-full max-w-6xl mx-auto grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-2xl p-6 shadow-sm">
               {error && (
                 <p className="text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-lg px-4 py-2">
                   {error}
                 </p>
               )}
 
-              <div className="flex justify-center">
-                <div className="px-10 py-3 bg-indigo-100/70 rounded-xl">
-                  <span className="text-indigo-950">Feedback</span>
-                </div>
+              <div>
+                <p className="text-indigo-950 text-lg font-semibold">Share your feedback</p>
+                <p className="text-sm text-indigo-700/80">
+                  Tell us how your experience was. Your feedback helps improve the assistant.
+                </p>
               </div>
 
               <div>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="comment..."
-                  rows={12}
-                  className="w-full px-6 py-5 bg-indigo-50/50 border border-indigo-100 rounded-xl text-indigo-950 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-300 focus:bg-indigo-50 transition-all duration-200 resize-none"
+                  placeholder="Write your feedback..."
+                  rows={10}
+                  className="w-full px-6 py-5 bg-indigo-50/60 border border-indigo-100 rounded-xl text-indigo-950 placeholder:text-indigo-400 focus:outline-none focus:border-indigo-300 focus:bg-indigo-50 transition-all duration-200 resize-none"
                 />
               </div>
 
-              <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-                <div className="flex items-center gap-3 px-10 py-4 bg-indigo-100/70 rounded-xl">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <button
-                      key={star}
-                      type="button"
-                      onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoveredRating(star)}
-                      onMouseLeave={() => setHoveredRating(0)}
-                      className="transition-transform duration-200 hover:scale-110"
-                      aria-label={`Rate ${star} stars`}
-                    >
-                      <Star
-                        className="w-7 h-7"
-                        fill={star <= (hoveredRating || rating) ? "#312e81" : "none"}
-                        stroke="#312e81"
-                      />
-                    </button>
-                  ))}
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm text-indigo-900">Your rating</span>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-indigo-100/70 rounded-xl">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHoveredRating(star)}
+                        onMouseLeave={() => setHoveredRating(0)}
+                        className="transition-transform duration-200 hover:scale-110"
+                        aria-label={`Rate ${star} stars`}
+                      >
+                        <Star
+                          className="w-6 h-6"
+                          fill={star <= (hoveredRating || rating) ? "#4f46e5" : "none"}
+                          stroke="#4f46e5"
+                        />
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                <label className="flex items-center gap-3 px-4 py-3 bg-indigo-100/70 rounded-xl cursor-pointer hover:bg-indigo-200/70 transition-colors">
-                  <ImageIcon className="w-5 h-5 text-indigo-900" />
-                  <span className="text-indigo-900 text-sm">
-                    {screenshot ? screenshot.name : "Attach screenshot (optional)"}
-                  </span>
+                <label className="flex items-center justify-between gap-3 px-4 py-3 bg-indigo-100/70 rounded-xl cursor-pointer hover:bg-indigo-200/70 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <ImageIcon className="w-5 h-5 text-indigo-900" />
+                    <span className="text-indigo-900 text-sm">
+                      {screenshot ? screenshot.name : "Attach screenshot (optional)"}
+                    </span>
+                  </div>
+                  <span className="text-xs text-indigo-700">PNG/JPG</span>
                   <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
                 </label>
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="px-10 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30 disabled:opacity-60"
-                >
-                  {submitting ? "Submitting..." : "Submit"}
-                </button>
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30 disabled:opacity-60"
+                  >
+                    {submitting ? "Submitting..." : "Submit Feedback"}
+                  </button>
+                </div>
               </div>
             </form>
 
-            <PastFeedback items={items} loading={loading} />
+            <div className="bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-2xl p-6 shadow-sm">
+              <PastFeedback items={items} loading={loading} />
+            </div>
           </div>
         </div>
       </div>
@@ -172,8 +183,8 @@ type PastFeedbackProps = {
 
 function PastFeedback({ items, loading }: PastFeedbackProps) {
   return (
-    <div className="mt-10">
-      <h3 className="text-indigo-900 font-medium mb-4">Your past feedback</h3>
+    <div>
+      <h3 className="text-indigo-900 font-semibold mb-4">Your past feedback</h3>
       {loading ? (
         <p className="text-sm text-indigo-700">Loading...</p>
       ) : items.length === 0 ? (
@@ -181,15 +192,15 @@ function PastFeedback({ items, loading }: PastFeedbackProps) {
       ) : (
         <div className="space-y-4">
           {items.map((fb) => (
-            <div key={fb.id} className="bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-xl p-4">
+            <div key={fb.id} className="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2 text-indigo-900">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star
                       key={i}
                       className="w-4 h-4"
-                      fill={fb.rating && i <= fb.rating ? "#312e81" : "none"}
-                      stroke="#312e81"
+                      fill={fb.rating && i <= fb.rating ? "#4f46e5" : "none"}
+                      stroke="#4f46e5"
                     />
                   ))}
                 </div>
