@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile, type Profile as ProfileDto } from "../api/profile";
 
 const inputClass =
-  "w-full pr-4 py-3 bg-indigo-50/60 border border-indigo-200 rounded-xl text-indigo-950 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-400 focus:bg-indigo-50 transition-all duration-200";
+  "w-full pr-4 pl-2 py-3 bg-indigo-50/60 border border-indigo-200 rounded-xl text-indigo-950 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-400 focus:bg-indigo-50 transition-all duration-200 leading-relaxed";
 
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileDto | null>(null);

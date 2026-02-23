@@ -3,8 +3,6 @@ import { useState } from "react";
 import {
   LayoutDashboard,
   FileText,
-  MessageSquare,
-  Users,
   ChevronDown,
   ChevronRight,
   PanelLeftOpen,
@@ -17,13 +15,13 @@ export function AdminSidebar() {
   const location = useLocation();
   const { logout, name } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [openSection, setOpenSection] = useState<"documents" | "feedback" | null>(null);
+  const [openSection, setOpenSection] = useState<"documents" | null>(null);
 
   const go = (path: string) => navigate(path);
 
   const isActive = (path: string) => location.pathname.startsWith(path);
 
-  const toggleSection = (section: "documents" | "feedback") => {
+  const toggleSection = (section: "documents") => {
     setOpenSection((prev) => (prev === section ? null : section));
   };
 
@@ -63,26 +61,6 @@ export function AdminSidebar() {
             { label: "Guided Library", onClick: () => go("/admin/library") },
             { label: "AI Legal Info", onClick: () => go("/admin/legal-info") },
           ]}
-        />
-
-        <Section
-          label="Feedback"
-          icon={<MessageSquare className="size-5 text-indigo-300" />}
-          open={openSection === "feedback"}
-          onToggle={() => toggleSection("feedback")}
-          collapsed={isCollapsed}
-          items={[
-            { label: "User Feedback", onClick: () => go("/feedback") },
-            { label: "Admin Review", onClick: () => go("/admin/feedback") },
-          ]}
-        />
-
-        <NavItem
-          label="Users"
-          icon={<Users className="size-5" />}
-          active={isActive("/admin/users")}
-          onClick={() => go("/admin/users")}
-          collapsed={isCollapsed}
         />
       </div>
 

@@ -1,13 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Users,
-  FileText,
-  MessageSquare,
-  Activity,
-  ChevronRight,
-  Star,
-  TrendingUp,
-} from "lucide-react";
+import { Users, FileText, MessageSquare, Activity, Star, TrendingUp } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -154,74 +146,63 @@ export default function AdminPage() {
               )}
             </div>
 
-            {/* Recent Feedback Table */}
-            <div className="bg-white border border-indigo-100 rounded-2xl p-8">
+            {/* User Feedback (All) */}
+            <div className="bg-white border border-indigo-100 rounded-2xl p-6 md:p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-indigo-950 mb-1">Recent Feedback</h3>
-                  <p className="text-sm text-indigo-600/70">Latest user reviews and ratings</p>
+                  <h3 className="text-indigo-950 mb-1">User Feedback</h3>
+                  <p className="text-sm text-indigo-600/70">
+                    Every submission with rating and attachment
+                  </p>
                 </div>
-                <button className="px-4 py-2 text-sm text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 rounded-lg transition-all duration-200">
-                  View All
-                </button>
+                <span className="text-sm text-indigo-600/70">Total: {feedback.length}</span>
               </div>
-              <div className="space-y-4">
-                {feedback.slice(0, 5).map((fb) => (
-                  <div
-                    key={fb.id}
-                    className="flex items-center justify-between p-4 bg-indigo-50/30 hover:bg-indigo-50/50 rounded-xl transition-all duration-200"
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h4 className="text-indigo-950">{fb.user_name || "User"}</h4>
-                        <div className="flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              className={`w-4 h-4 ${
-                                fb.rating && i < fb.rating
-                                  ? "fill-amber-400 text-amber-400"
-                                  : "text-gray-300"
-                              }`}
-                            />
-                          ))}
+              {feedback.length === 0 ? (
+                <p className="text-sm text-indigo-700">No feedback available.</p>
+              ) : (
+                <div className="space-y-4">
+                  {feedback.map((fb) => (
+                    <div
+                      key={fb.id}
+                      className="flex flex-col lg:flex-row lg:items-center gap-4 p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl"
+                    >
+                      <div className="flex-1 space-y-2">
+                        <div className="flex items-center gap-3">
+                          <h4 className="text-indigo-950 font-medium">{fb.user_name || "User"}</h4>
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`w-4 h-4 ${
+                                  fb.rating && i < fb.rating
+                                    ? "fill-amber-400 text-amber-400"
+                                    : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                          </div>
                         </div>
+                        <p className="text-sm text-indigo-900/80 whitespace-pre-wrap">
+                          {fb.message}
+                        </p>
+                        <p className="text-xs text-indigo-600/70">
+                          {new Date(fb.created_at).toLocaleString()}
+                        </p>
                       </div>
-                      <p className="text-sm text-indigo-600/70 truncate">{fb.message}</p>
+                      {fb.screenshot_url && (
+                        <a
+                          href={fb.screenshot_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-sm text-indigo-700 hover:text-indigo-900 underline"
+                        >
+                          View image
+                        </a>
+                      )}
                     </div>
-                    <span className="text-xs text-indigo-600/50 ml-4">
-                      {new Date(fb.created_at).toLocaleString()}
-                    </span>
-                  </div>
-                ))}
-                {feedback.length === 0 && (
-                  <p className="text-sm text-indigo-700">No feedback available.</p>
-                )}
-              </div>
-            </div>
-
-            {/* Management Action Buttons */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-8">
-              <ActionCard
-                title="User Management"
-                subtitle="Manage user accounts and permissions"
-                countLabel={`${metrics.total} logins`}
-                icon={<Users className="w-8 h-8" />}
-              />
-
-              <ActionCard
-                title="Document Management"
-                subtitle="View and manage uploaded documents"
-                countLabel={`${documentCount} docs`}
-                icon={<FileText className="w-8 h-8" />}
-              />
-
-              <ActionCard
-                title="Feedback Management"
-                subtitle="Review and respond to user feedback"
-                countLabel={`${feedback.length} total`}
-                icon={<MessageSquare className="w-8 h-8" />}
-              />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -249,29 +230,5 @@ function StatCard({ title, subtitle, value, icon, pill }: StatCardProps) {
       <p className="text-indigo-600/70 text-sm">{subtitle}</p>
       <p className="text-2xl text-indigo-950 mt-2">{value}</p>
     </div>
-  );
-}
-
-type ActionCardProps = {
-  title: string;
-  subtitle: string;
-  countLabel: string;
-  icon: React.ReactNode;
-};
-
-function ActionCard({ title, subtitle, countLabel, icon }: ActionCardProps) {
-  return (
-    <button className="bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl p-8 transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30 text-left">
-      <div className="flex items-center justify-between mb-4">
-        {icon}
-        <span className="text-sm bg-white/20 px-3 py-1 rounded-lg">{countLabel}</span>
-      </div>
-      <h3 className="mb-2">{title}</h3>
-      <p className="text-sm text-indigo-100">{subtitle}</p>
-      <div className="mt-3 inline-flex items-center gap-1 text-sm text-white/80">
-        <span>View</span>
-        <ChevronRight className="w-4 h-4" />
-      </div>
-    </button>
   );
 }
