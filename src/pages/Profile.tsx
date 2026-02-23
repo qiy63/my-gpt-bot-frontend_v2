@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile, type Profile as ProfileDto } from "../api/profile";
 
 const inputClass =
-  "w-full pr-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-300";
+  "w-full pr-4 py-3 bg-indigo-50/60 border border-indigo-200 rounded-xl text-indigo-950 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-400 focus:bg-indigo-50 transition-all duration-200";
 
 const Profile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileDto | null>(null);
@@ -104,25 +104,22 @@ const Profile: React.FC = () => {
   if (!profile) return <p className="text-center py-10 text-indigo-900">No profile data</p>;
 
   return (
-    <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4 md:p-8">
-      <BackgroundGlow />
-
-      <div className="relative w-full max-w-5xl">
-        <div className="relative bg-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl overflow-hidden border border-white/20">
-          <header className="relative bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-xl border-b border-white/10 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50/30 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <header className="bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-2xl p-6 flex items-center justify-between">
             <div className="flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="p-3 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 border border-white/20"
+                className="p-3 rounded-xl bg-indigo-100/70 hover:bg-indigo-200/70 transition-all duration-200"
                 aria-label="Go back"
               >
-                <ArrowLeft className="w-6 h-6 text-white" />
+                <ArrowLeft className="w-6 h-6 text-indigo-900" />
               </button>
 
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
+                  <div className="w-16 h-16 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center overflow-hidden">
                     {profile.profile_picture_url ? (
                       <img
                         src={profile.profile_picture_url}
@@ -130,19 +127,19 @@ const Profile: React.FC = () => {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <UserCircle2 className="w-10 h-10 text-white/70" />
+                      <UserCircle2 className="w-10 h-10 text-indigo-600" />
                     )}
                   </div>
                   <div>
-                    <p className="text-white text-lg">{profile.full_name || "Your name"}</p>
-                    <p className="text-white/70 text-sm">{profile.email || "No email found"}</p>
+                    <p className="text-indigo-950 text-lg font-semibold">{profile.full_name || "Your name"}</p>
+                    <p className="text-indigo-700/80 text-sm">{profile.email || "No email found"}</p>
                   </div>
                 </div>
               </div>
 
               <label
                 htmlFor="profile-picture-input"
-                className="p-3 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 border border-white/20 cursor-pointer flex items-center gap-2 text-white"
+                className="p-3 rounded-xl bg-indigo-100/70 hover:bg-indigo-200/70 transition-all duration-200 cursor-pointer flex items-center gap-2 text-indigo-900"
               >
                 <Camera className="w-5 h-5" />
                 <span className="hidden sm:inline">Change Photo</span>
@@ -155,16 +152,16 @@ const Profile: React.FC = () => {
                 />
               </label>
             </div>
-          </header>
+        </header>
 
-          <div className="p-8 md:p-12">
-            {error && (
-              <p className="mb-4 text-center text-sm text-rose-200 bg-white/10 rounded-xl py-2">
-                {error}
-              </p>
-            )}
+        <div className="bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-2xl p-6 md:p-8 shadow-sm">
+          {error && (
+            <p className="mb-4 text-center text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-xl py-2">
+              {error}
+            </p>
+          )}
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid gap-6 md:grid-cols-2">
               <ProfileField icon={<UserCircle2 className="w-5 h-5" />} label="Full Name">
                 <input
@@ -260,42 +257,23 @@ const Profile: React.FC = () => {
               </ProfileField>
             </div>
 
-              <div className="flex flex-col md:flex-row md:items-center gap-4">
-                <p className="text-white/70 text-sm flex-1">
-                  Your details help us personalise your legal experience. All data is encrypted and
-                  stored securely.
-                </p>
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="inline-flex items-center justify-center gap-2 py-4 px-8 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-purple-500/50 border border-white/20 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  <Save className="w-5 h-5" />
-                  {saving ? "Saving..." : "Save Changes"}
-                </button>
-              </div>
-            </form>
-          </div>
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <p className="text-indigo-700/80 text-sm flex-1">
+                Your details help us personalise your legal experience. All data is encrypted and
+                stored securely.
+              </p>
+              <button
+                type="submit"
+                disabled={saving}
+                className="inline-flex items-center justify-center gap-2 py-3 px-8 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-indigo-500/30 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <Save className="w-5 h-5" />
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-
-      <style>{`
-        @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(20px, -50px) scale(1.1); }
-          50% { transform: translate(-20px, 20px) scale(0.9); }
-          75% { transform: translate(50px, 50px) scale(1.05); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </div>
   );
 };
@@ -311,24 +289,12 @@ type ProfileFieldProps = {
 function ProfileField({ icon, label, children }: ProfileFieldProps) {
   return (
     <div className="group">
-      <label className="block text-white/80 mb-2 text-sm">{label}</label>
+      <label className="block text-indigo-900/80 mb-2 text-sm">{label}</label>
       <div className="relative">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-white/70 transition-colors">
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-400 group-focus-within:text-indigo-600 transition-colors">
           {icon}
         </span>
         <div className="pl-12">{children}</div>
-      </div>
-    </div>
-  );
-}
-
-function BackgroundGlow() {
-  return (
-    <div className="absolute inset-0 bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-900">
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-violet-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000" />
       </div>
     </div>
   );

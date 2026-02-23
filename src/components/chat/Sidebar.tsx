@@ -101,12 +101,6 @@ export function Sidebar({
               >
                 Send Feedback
               </div>
-              <div
-                onClick={() => navigate("/feedback")}
-                className="pl-8 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer"
-              >
-                Report Issue
-              </div>
             </div>
           )}
         </div>
@@ -134,7 +128,7 @@ export function Sidebar({
         {isProfileExpanded && !isCollapsed && (
           <div className="px-3 pb-3 space-y-1 border-t border-indigo-800/30">
             <div onClick={() => navigate("/profile")} className="pl-12 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">
-              Settings
+              Profile
             </div>
             <div onClick={logout} className="pl-12 py-2 text-sm text-indigo-200 hover:text-white cursor-pointer">
               Sign Out
