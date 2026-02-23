@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Download, ListChecks, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../components/chat/Sidebar";
+import { LegalDisclaimer } from "../components/common/LegalDisclaimer";
 import {
   fetchDocuments,
   downloadDocument,
@@ -177,6 +178,7 @@ export default function DocumentPage() {
             </div>
           )}
         </div>
+        <LegalDisclaimer />
       </div>
     </div>
   );

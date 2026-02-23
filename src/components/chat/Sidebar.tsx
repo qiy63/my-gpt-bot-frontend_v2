@@ -34,7 +34,12 @@ export function Sidebar({
     <div className={`bg-gradient-to-b from-indigo-950 to-indigo-900 text-white transition-all duration-300 ease-in-out flex flex-col ${isCollapsed ? 'w-16' : 'w-72'}`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-indigo-800/50">
-        {!isCollapsed && <h1 className="tracking-tight">MyPropertyAid</h1>}
+        {!isCollapsed && (
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="Logo" className="h-8 w-8 rounded-full bg-white/10" />
+            <h1 className="tracking-tight">MyPropertyAid</h1>
+          </div>
+        )}
         <button
           onClick={onToggleCollapse}
           className="p-2 hover:bg-indigo-800/50 rounded-lg transition-colors"

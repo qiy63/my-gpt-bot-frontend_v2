@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile, type Profile as ProfileDto } from "../api/profile";
+import { LegalDisclaimer } from "../components/common/LegalDisclaimer";
 
 const inputClass =
   "w-full pr-4 pl-2 py-3 bg-indigo-50/60 border border-indigo-200 rounded-xl text-indigo-950 placeholder:text-indigo-300 focus:outline-none focus:border-indigo-400 focus:bg-indigo-50 transition-all duration-200 leading-relaxed";
@@ -104,8 +105,8 @@ const Profile: React.FC = () => {
   if (!profile) return <p className="text-center py-10 text-indigo-900">No profile data</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50/30 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50/30 p-4 md:p-8 flex flex-col">
+      <div className="max-w-6xl mx-auto space-y-6 flex-1 w-full">
         <header className="bg-white/80 backdrop-blur-sm border border-indigo-100 rounded-2xl p-6 flex items-center justify-between">
             <div className="flex items-center justify-between">
               <button
@@ -274,6 +275,7 @@ const Profile: React.FC = () => {
           </form>
         </div>
       </div>
+      <LegalDisclaimer />
     </div>
   );
 };

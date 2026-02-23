@@ -199,11 +199,17 @@ export default function Login() {
 
         <div className="hidden lg:flex flex-col justify-between bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-10 text-white shadow-lg">
           <div>
-            <h1 className="text-3xl font-semibold mb-4">Property Legal AI</h1>
+            <div className="flex items-center gap-3 mb-4">
+              <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full bg-white/20" />
+              <h1 className="text-3xl font-semibold">Property Legal AI</h1>
+            </div>
             <p className="text-white/80">
               Your trusted advisor for property law. Ask questions, get guided
               documents, and manage your legal profile in one place.
             </p>
+            <div className="mt-6 text-xs text-white/70 bg-white/10 rounded-xl p-3">
+              This platform provides general legal information and is not a replacement for a qualified lawyer.
+            </div>
           </div>
 
           <div className="space-y-4 text-sm text-white/80">

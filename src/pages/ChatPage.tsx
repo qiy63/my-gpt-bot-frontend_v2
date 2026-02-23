@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Sidebar } from "../components/chat/Sidebar";
 import { ChatArea } from "../components/chat/ChatArea";
+import { LegalDisclaimer } from "../components/common/LegalDisclaimer";
 import { useChat, type Message } from "../hooks/useChat";
 
 const ChatPage: React.FC = () => {
@@ -45,6 +46,7 @@ const ChatPage: React.FC = () => {
           onSelectChat={setActiveConversationId}
           onNewChat={startNewChat}
         />
+        <LegalDisclaimer />
       </div>
     </div>
   );

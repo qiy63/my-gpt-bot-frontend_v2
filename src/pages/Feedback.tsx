@@ -3,6 +3,7 @@ import { ArrowLeft, Plus, Star, Image as ImageIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { fetchFeedback, submitFeedback, type FeedbackEntry } from "../api/feedback";
 import { Sidebar } from "../components/chat/Sidebar";
+import { LegalDisclaimer } from "../components/common/LegalDisclaimer";
 
 export default function FeedbackPage() {
   const navigate = useNavigate();
@@ -171,6 +172,7 @@ export default function FeedbackPage() {
             </div>
           </div>
         </div>
+        <LegalDisclaimer />
       </div>
     </div>
   );
