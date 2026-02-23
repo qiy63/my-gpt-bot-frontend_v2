@@ -1,5 +1,6 @@
 import React, { type JSX } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProfilePage from "./pages/Profile";
@@ -21,6 +22,12 @@ const App: React.FC = () => {
 
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          token ? <Navigate to={role === "admin" ? "/admin" : "/chat"} /> : <Landing />
+        }
+      />
       <Route path="/login" element={!token ? <Login /> : <Navigate to="/chat" />} />
       <Route path="/register" element={!token ? <Register /> : <Navigate to="/chat" />} />
       <Route path="/profile" element={token ? <ProfilePage /> : <Navigate to="/login" />} />
@@ -72,7 +79,7 @@ const App: React.FC = () => {
           </AdminRoute>
         }
       />
-      <Route path="*" element={<Navigate to={token ? "/chat" : "/login"} />} />
+      <Route path="*" element={<Navigate to={token ? "/chat" : "/"} />} />
     </Routes>
   );
 };
