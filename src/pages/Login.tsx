@@ -77,7 +77,7 @@ export default function Login() {
               <p className="text-indigo-700/80 text-sm">
                 {activeTab === "login"
                   ? "Sign in to continue your property legal journey."
-                  : "Join Property Legal AI to get tailored guidance."}
+                  : "Join MyPropertyAid to get tailored guidance."}
               </p>
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function Login() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full bg-white/20" />
-              <h1 className="text-3xl font-semibold">Property Legal AI</h1>
+              <h1 className="text-3xl font-semibold">MyPropertyAid</h1>
             </div>
             <p className="text-white/80">
               Your trusted advisor for property law. Ask questions, get guided

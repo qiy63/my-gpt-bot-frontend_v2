@@ -11,7 +11,7 @@ export default function Landing() {
         <div className="flex items-center gap-3">
           <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-full bg-white/70" />
           <div>
-            <p className="text-indigo-950 font-semibold text-lg">Property Legal AI</p>
+            <p className="text-indigo-950 font-semibold text-lg">MyPropertyAid</p>
             <p className="text-indigo-700/70 text-xs">Property guidance, simplified</p>
           </div>
         </div>
