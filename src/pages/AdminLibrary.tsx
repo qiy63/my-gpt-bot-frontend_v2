@@ -145,10 +145,6 @@ export default function AdminLibrary() {
   };
 
   const handleDownload = async (doc: DocumentItem) => {
-    if (doc.file_url) {
-      window.open(doc.file_url, "_blank", "noopener,noreferrer");
-      return;
-    }
     if (doc.placeholder_url) {
       window.open(doc.placeholder_url, "_blank", "noopener,noreferrer");
       return;

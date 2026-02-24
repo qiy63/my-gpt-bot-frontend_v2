@@ -46,10 +46,6 @@ export default function DocumentPage() {
     placeholderUrl?: string | null,
     fileUrl?: string | null
   ) => {
-    if (fileUrl) {
-      window.open(fileUrl, "_blank", "noopener,noreferrer");
-      return;
-    }
     if (placeholderUrl && placeholderUrl.length > 0) {
       window.open(placeholderUrl, "_blank", "noopener,noreferrer");
       return;
