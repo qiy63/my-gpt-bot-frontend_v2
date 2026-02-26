@@ -71,12 +71,6 @@ export default function FeedbackPage() {
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-slate-50 to-indigo-50/30 overflow-hidden">
-      {!isSidebarCollapsed && (
-        <div
-          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
-          onClick={toggleSidebar}
-        />
-      )}
       <Sidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={toggleSidebar} />
 
       <div className="flex-1 min-w-0 flex flex-col transition-all duration-300">

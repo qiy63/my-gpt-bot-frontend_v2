@@ -31,11 +31,7 @@ export function Sidebar({
   const [isProfileExpanded, setIsProfileExpanded] = useState(false);
 
   return (
-    <div
-      className={`bg-gradient-to-b from-indigo-950 to-indigo-900 text-white transition-all duration-300 ease-in-out flex flex-col
-      fixed inset-y-0 left-0 z-40 lg:static lg:translate-x-0
-      ${isCollapsed ? "-translate-x-full lg:translate-x-0 lg:w-16" : "translate-x-0 w-72"}`}
-    >
+    <div className={`bg-gradient-to-b from-indigo-950 to-indigo-900 text-white transition-all duration-300 ease-in-out flex flex-col ${isCollapsed ? 'w-16' : 'w-72'}`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-indigo-800/50">
         {!isCollapsed && (

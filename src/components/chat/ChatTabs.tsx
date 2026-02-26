@@ -15,25 +15,25 @@ interface ChatTabsProps {
 
 export function ChatTabs({ tabs, activeId, onSelect, onNew, onClose }: ChatTabsProps) {
   return (
-    <div className="flex items-center gap-2 px-4 py-2 bg-white border-b border-indigo-100 overflow-x-auto">
+    <div className="flex items-center gap-1 px-4 py-2 bg-white border-b border-indigo-100 overflow-x-auto">
       {tabs.map((tab) => {
         const isActive = tab.id === activeId;
         return (
-        <div
-          key={tab.id}
-          className={`
-              flex items-center gap-2 px-5 py-3 lg:px-4 lg:py-2 rounded-t-lg cursor-pointer group
+          <div
+            key={tab.id}
+            className={`
+              flex items-center gap-2 px-4 py-2 rounded-t-lg cursor-pointer group
               ${isActive ? "bg-indigo-100 border-t border-x border-indigo-200" : "bg-transparent hover:bg-slate-50"}
             `}
-          onClick={() => onSelect(tab.id)}
-        >
-          <span
-            className={`text-base lg:text-sm max-w-[200px] truncate ${
-              isActive ? "text-indigo-950" : "text-slate-700"
-            }`}
+            onClick={() => onSelect(tab.id)}
           >
-            {tab.title || "New Chat"}
-          </span>
+            <span
+              className={`text-sm max-w-[160px] truncate ${
+                isActive ? "text-indigo-950" : "text-slate-700"
+              }`}
+            >
+              {tab.title || "New Chat"}
+            </span>
             {onClose && (
               <button
                 onClick={(e) => {
