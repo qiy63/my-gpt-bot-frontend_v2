@@ -33,6 +33,12 @@ export default function DocumentPage() {
     load();
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSidebarCollapsed(true);
+    }
+  }, []);
+
   const activeCategory = useMemo(
     () => categories.find((c) => c.id === activeCategoryId) || null,
     [categories, activeCategoryId]

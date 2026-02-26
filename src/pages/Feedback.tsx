@@ -31,6 +31,12 @@ export default function FeedbackPage() {
     load();
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSidebarCollapsed(true);
+    }
+  }, []);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!message.trim()) {
