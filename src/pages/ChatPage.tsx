@@ -35,6 +35,12 @@ const ChatPage: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-indigo-50 overflow-hidden">
+      {!isSidebarCollapsed && (
+        <div
+          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
       <Sidebar
         isCollapsed={isSidebarCollapsed}
         onToggleCollapse={toggleSidebar}
