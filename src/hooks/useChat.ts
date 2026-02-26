@@ -65,11 +65,13 @@ export const useChat = () => {
         const title = content.trim().split(/\s+/).slice(0, 8).join(" ");
         const created = await createConversation(title);
         conversationId = created.id;
-        setActiveConversationId(created.id);
-        await loadConversations();
       }
 
       await addMessage(conversationId, "user", content);
+      if (!activeConversationId) {
+        setActiveConversationId(conversationId);
+        await loadConversations();
+      }
 
       const res = await askQuestion(content);
 
