@@ -3,10 +3,11 @@ import { DEMO_MODE } from "../config/demo";
 
 export const loginApi = async (email: string, password: string) => {
   if (DEMO_MODE) {
+    const role = email.toLowerCase().includes("admin") ? "admin" : "user";
     return {
       token: "demo-token",
       userId: 1,
-      user: { id: 1, name: "Demo User", email, role: "user" },
+      user: { id: 1, name: role === "admin" ? "Demo Admin" : "Demo User", email, role },
     };
   }
   const res = await api.post("/auth/login", { email, password });
