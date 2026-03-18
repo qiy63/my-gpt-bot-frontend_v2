@@ -1,4 +1,5 @@
 import api from "./axios";
+import { DEMO_MODE } from "../config/demo";
 
 export type DocumentItem = {
   id: number;
@@ -21,6 +22,26 @@ export type DocumentCategory = {
 };
 
 export const fetchDocuments = async (): Promise<DocumentCategory[]> => {
+  if (DEMO_MODE) {
+    return [
+      {
+        id: 1,
+        name: "Tenancy",
+        description: "Rental and tenancy-related documents",
+        documents: [
+          {
+            id: 101,
+            category_id: 1,
+            title: "Tenancy Agreement Checklist",
+            short_description: "Key terms and clauses to review before signing.",
+            prerequisites: "Valid tenancy draft\nLandlord/tenant details",
+            required_docs: "IC/passport copies\nUtility receipts",
+            placeholder_url: "https://example.com/tenancy.pdf",
+          },
+        ],
+      },
+    ];
+  }
   const res = await api.get("/documents");
   return res.data.categories || [];
 };
